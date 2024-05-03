@@ -1,11 +1,16 @@
 import { readdirSync } from 'fs';
-import { basename as _basename, dirname, join } from 'path';
+import path, { basename as _basename, dirname, join } from 'path';
 import mongoose from 'mongoose';
 import { fileURLToPath, pathToFileURL } from 'url';
+import dotenv from "dotenv";
+import { expand } from "dotenv-expand";
+const myEnv = dotenv.config({ path: path.resolve(`.env`) });
+expand(myEnv);
 
 const { Schema } = mongoose;
+
 const config = {
-  uri: process.env.NOSQL_DB_URI || "mongodb://127.0.0.1:27017/new-project",
+  uri: process.env.NOSQL_DB_URI,
   options: {
     autoIndex: true,
     maxPoolSize: 10,
